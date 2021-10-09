@@ -1,0 +1,131 @@
+.wrapper {
+	display: flex;
+    background-color: var(--tertiary);
+}
+
+#sidebar {
+	min-width: 100px;
+	max-width: 100px;
+	height: 100vh;
+	transition: all 0.3s;
+    justify-content: space-between;
+}
+
+#content > #test {
+	overflow-y: scroll;
+	height: 100vh;
+}
+
+#sidebar.active {
+	margin-left: -100px;
+}
+
+.icon-bar {
+	width: 22px;
+	height: 2px;
+	background-color: var(--grey);
+	display: block;
+	transition: all 0.2s;
+	margin-top: 4px;
+}
+
+.navMenu {
+    list-style-type: none;
+    width: 100%;
+    padding-top: 4rem;
+    padding-left: 1rem;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.navList {
+    height: 50vh;
+}
+
+.navItem {
+    color: var(--grey);
+    text-shadow: 1px 1px 1px #ccc;
+    font-size: 2rem;
+}
+
+.navItem a {
+    height: 100%;
+    width: 100%;
+    color: white;
+}
+
+.navItem a:hover, #LogOut:hover {
+    color: var(--primary-soft);
+}
+
+#LogOut {
+    color: white;
+}
+
+#sidebarCollapse,
+#sidebarCollapse:active,
+#sidebarCollapse:focus {
+	background-color: var(--tertiary);
+	border: none;
+	outline: none;
+}
+
+#sidebarCollapse .top-bar {
+	transform: rotate(45deg);
+	transform-origin: 10% 10%;
+}
+
+#sidebarCollapse .middle-bar {
+	opacity: 0;
+}
+
+#sidebarCollapse .bottom-bar {
+	transform: rotate(-45deg);
+	transform-origin: 10% 90%;
+}
+
+#sidebarCollapse.collapsed .top-bar {
+	transform: rotate(0);
+}
+
+#sidebarCollapse.collapsed .middle-bar {
+	opacity: 1;
+}
+
+#sidebarCollapse.collapsed .bottom-bar {
+	transform: rotate(0);
+}
+
+@media (max-width: 768px) {
+	#sidebar {
+		margin-left: -150px;
+	}
+	#sidebar.active {
+		margin-left: 0;
+	}
+	#sidebarCollapse.collapsed .top-bar {
+		transform: rotate(45deg);
+		transform-origin: 10% 10%;
+	}
+
+	#sidebarCollapse.collapsed .middle-bar {
+		opacity: 0;
+	}
+
+	#sidebarCollapse.collapsed .bottom-bar {
+		transform: rotate(-45deg);
+		transform-origin: 10% 90%;
+	}
+
+	#sidebarCollapse .top-bar {
+		transform: rotate(0);
+	}
+
+	#sidebarCollapse .middle-bar {
+		opacity: 1;
+	}
+
+	#sidebarCollapse .bottom-bar {
+		transform: rotate(0);
+	}
+}

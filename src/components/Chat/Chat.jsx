@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from 'react';
-import { io } from "socket.io-client"; 
+import { io } from 'socket.io-client'; 
+import ChatDetails from './ChatDetails.jsx';
 import Messages from './Messages.jsx';
 import NewMessage from './NewMessage.jsx';
 import './Chat.css'; 
@@ -14,7 +15,7 @@ function Chat() {
     useEffect(() => {
         const PORT = 3334;
 
-		setUsername(() => window.prompt('Please give us your username'));
+		setUsername(() => /*window.prompt('Please give us your username')*/ 'Michele');
 		setSocket(io('ws://localhost:'+PORT));
         return () => {
             if(socket) socket.disconnect();
@@ -63,8 +64,8 @@ function Chat() {
 
 
     return (
-        <div className="main">
-            <h2>Chat</h2>
+        <div className="chatContainer">
+            <ChatDetails username={username}/>
             <Messages messages={messages} />
             <NewMessage 
                 username={username} 

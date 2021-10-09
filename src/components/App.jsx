@@ -4,7 +4,8 @@ import HomePage from '../pages/HomePage.jsx';
 import LandingPage from '../pages/LandingPage.jsx';
 import AuthPage from '../pages/AuthPage.jsx';
 import { AuthContext } from '../context/AuthContext.js'
-import Chat from '../components/Chat/Chat.jsx';
+import ChatPage from '../pages/ChatPage.jsx';
+import NavSideBar from './Navigation/NavSideBar.jsx';
 
 import './App.css';
 
@@ -19,11 +20,12 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="App flex_row">
+      <NavSideBar />
       <Switch>
 				<Route exact path="/auth" component={AuthPage} />
-        <Route path="/home" component={HomePage} />
-        <Route path="/" component={Chat} />
+        <Route path="/chat" component={ChatPage} />
+        <Route path="/" component={HomePage} />
         <Route component={() => <h1>Not found</h1>} />
 			</Switch>
     </div>

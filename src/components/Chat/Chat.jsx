@@ -35,19 +35,20 @@ function Chat() {
             socket.on("message", (data) => {
                 
                 const { type, payload } = data;
-                const message = {}
+                console.log(payload)
+                const msgObj = payload
                 
                 switch(type) {
                   case "NEW_USER":
-                    message.text = 'A wild ' + payload.username + ' appeared';
+                    msgObj.text = 'A wild ' + payload.username + ' appeared';
                     break;
                   case "NEW_MESSAGE":
-                    message.text = `${payload.username}: ${payload.message}`;
+                    msgObj.text = `${payload.username}: ${payload.text}`;
                     break;
                   default: 
                     break;
                 }
-                showMessageReceived(message)
+                showMessageReceived(msgObj)
             });
         }
         
@@ -58,7 +59,7 @@ function Chat() {
 	const showMessageReceived = message => showNewMessage(message, 'receiving');
 
     //! nachfragen: warum geht es bei setMessages([...messages, {message: message.text, className}]) schief??
-	const showNewMessage = (message, className) => setMessages((messages) => [...messages, {message: message.text, className}]);
+	const showNewMessage = (message, className) => setMessages((messages) => [...messages, {...message, className}]);
 
 
     return (

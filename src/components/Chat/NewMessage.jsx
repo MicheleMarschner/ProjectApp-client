@@ -3,6 +3,7 @@ import React , { useState,useRef } from 'react'
 function NewMessage({ socket, username, showMessageReceived, showMessageSent }) {
 
     const [newMessage, setNewMessage] = useState({});
+    const [inputError, setInputError] = useState({ className: '' });
     const chatInputForm = useRef();
 
     const onChange = e => {
@@ -12,12 +13,14 @@ function NewMessage({ socket, username, showMessageReceived, showMessageSent }) 
 	const onSubmit = e => {
 		e.preventDefault();
 		if (!newMessage.text) {
-			return window.alert(
-				'Please fill out all fields before publishing your message'
-			);
-		}
-		showMessageSent(newMessage);
-		sendMessageToServer(newMessage);
+            setInputError({ className: 'errorInput' });
+            return;
+          } else {
+            setInputError({ className: '' });
+          }
+        const time = new Date();
+		showMessageSent({...newMessage, time});
+		sendMessageToServer({...newMessage, time});
 		setNewMessage({});
 		chatInputForm.current.reset();
     }
@@ -30,7 +33,7 @@ function NewMessage({ socket, username, showMessageReceived, showMessageSent }) 
 		
 		const msgObj = {
 		  type: "NEW_MESSAGE",
-		  payload: { message: message.text, username }
+		  payload: { text: message.text, username }
 		}
 		socket.emit("message",  msgObj);
 	  }
@@ -46,8 +49,9 @@ function NewMessage({ socket, username, showMessageReceived, showMessageSent }) 
             }
         }} >
             <input 
-                type="text"
                 id="messageBox" 
+                className={`${inputError.className}`}
+                type="text"
                 name="text"
                 value={newMessage.text || ''}
                 placeholder="Type your message here"

@@ -130,7 +130,7 @@
   }
 
   .timestamp {
-    color: rgb(156, 153, 153);
+    color: var(--grey);
     font-size: 0.7rem;
     font-style: italic;
     display: inline-block;

@@ -7,14 +7,9 @@ function Messages ({messages}) {
 
     const messagesBottom = useRef();
 
-    useEffect(() => {
-        messagesBottom.current.scrollTop = messagesBottom.current.scrollHeight;
-        /* if (isScrolling) {
-            messagesBottom.current.scrollTop = messagesBottom.current.scrollHeight;
-            setIsScrolling(false)
-        }*/
-    }, [ /*isScrolling*/ messages])
+    useEffect(() => scrollToBottom(), [messages])
 
+    const scrollToBottom = () => messagesBottom.current.scrollTop = messagesBottom.current.scrollHeight;
 
     const renderMessages = messages => {
         if (loading) return (<h1>loading...</h1>);

@@ -8,12 +8,11 @@ import './Chat.css';
 //const URL = 'https://git.heroku.com/tranquil-fortress-48513.git';
 
 
-function Chat({user}) {
+function Chat() {
     console.log("component")
     const [username, setUsername] = useState("");
     const [socket, setSocket] = useState();
     const [messages, setMessages] = useState([]);
-    /*const [isScrolling, setIsScrolling] = useState(false);*/
     
 
     useEffect(() => {
@@ -57,16 +56,13 @@ function Chat({user}) {
     const showMessageInfo = message => showNewMessage(message, 'generalInfo');
 
     //! nachfragen: warum geht es bei setMessages([...messages, {message: message.text, className}]) schief??
-	const showNewMessage = (message, className) => {
-        setMessages((messages) => [...messages, {...message, className}])
-        /*setIsScrolling(true);*/
-    };
+	const showNewMessage = (message, className) => setMessages((messages) => [...messages, {...message, className}]);
 
 
     return (
         <div className="chatContainer">
             <ChatDetails username={username}/>
-            <Messages messages={messages} /*isScrolling={isScrolling} setIsScrolling={setIsScrolling}*/ />
+            <Messages messages={messages} />
             <NewMessage 
                 username={username} 
                 socket={socket}

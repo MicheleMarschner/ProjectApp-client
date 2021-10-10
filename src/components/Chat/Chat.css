@@ -146,7 +146,7 @@
     align-items: flex-end;
   }
   
-  .sending .avatar {
+  .sending .avatar, .generalInfo .avatar {
     display: none
   }
   
@@ -155,4 +155,9 @@
     background: linear-gradient(to bottom, var(--primary-soft) 0%, var(--primary) 100%);
     background-attachment: fixed;
     position: relative;
+  }
+
+  .generalInfo .message {
+    font-style: italic;
+    margin-bottom: 0;
   }

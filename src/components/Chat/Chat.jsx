@@ -7,19 +7,23 @@ import './Chat.css';
 
 //const URL = 'https://git.heroku.com/tranquil-fortress-48513.git';
 
-function Chat() {
+
+function Chat({user}) {
+    console.log("component")
     const [username, setUsername] = useState("");
     const [socket, setSocket] = useState();
     const [messages, setMessages] = useState([]);
     const [isScrolling, setIsScrolling] = useState(false);
 
     useEffect(() => {
+        console.log("socket initialization")
         const PORT = 3334;
 
 		setUsername(() => /*window.prompt('Please give us your username')*/ 'Michele');
-		setSocket(io('ws://localhost:'+PORT));
+        const socketInstance = io('ws://localhost:'+PORT)
+		setSocket(socketInstance);
         return () => {
-            if(socket) socket.disconnect();
+            socketInstance.disconnect();
             //setMessages([ 'No connection :(' ]);
         }
 	}, [])
@@ -27,29 +31,20 @@ function Chat() {
     useEffect(() => {
         if(socket){
             socket.on("connect", () => {
-                const msgObj = {
-                    type: "NEW_USER",
-                    payload: { message: "A new User appeared", username}
-                } 
+                const msgObj = { payload: { username }} 
                 socket.emit("newUser",  msgObj);
             });
         
             socket.on("message", (data) => {
-                
-                const { type, payload } = data;
+                console.log(data.payload)
+                const { event, payload } = data;
                 const msgObj = payload
                 
-                switch(type) {
-                  case "NEW_USER":
-                    msgObj.text = 'A wild ' + payload.username + ' appeared';
-                    break;
-                  case "NEW_MESSAGE":
+                if (event === "NEW_CHAT_MESSAGE") {
                     msgObj.text = `${payload.username}: ${payload.text}`;
-                    break;
-                  default: 
-                    break;
+                    return showMessageReceived(msgObj)
                 }
-                showMessageReceived(msgObj)
+                showMessageInfo(msgObj)
             });
         }
         
@@ -58,6 +53,7 @@ function Chat() {
 
     const showMessageSent = message => showNewMessage(message, 'sending'); 
 	const showMessageReceived = message => showNewMessage(message, 'receiving');
+    const showMessageInfo = message => showNewMessage(message, 'generalInfo');
 
     //! nachfragen: warum geht es bei setMessages([...messages, {message: message.text, className}]) schief??
 	const showNewMessage = (message, className) => {

@@ -32,10 +32,9 @@ function NewMessage({ socket, username, showMessageReceived, showMessageSent }) 
 		}
 		
 		const msgObj = {
-		  type: "NEW_MESSAGE",
 		  payload: { text: message.text, username }
 		}
-		socket.emit("message",  msgObj);
+		socket.emit("newMessage",  msgObj);
 	  }
     
     return (

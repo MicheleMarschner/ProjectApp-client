@@ -5,7 +5,7 @@ const loading = false;
 
 function Messages({ messages, setIsScrolling, isScrolling }) {
 
-    const messagesBottom = useRef(null);
+    const messagesBottom = useRef();
 
     useEffect(() => {
         if (isScrolling) {

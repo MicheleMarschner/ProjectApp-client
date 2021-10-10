@@ -98,10 +98,18 @@
 <node TEXT="When? On every connection or even every event?" ID="ID_1415285825" CREATED="1633872827396" MODIFIED="1633872853086" HGAP_QUANTITY="17 pt" VSHIFT_QUANTITY="40.5 pt"/>
 <node TEXT="Beispiel:&#xa;- mit JWT" ID="ID_1781289819" CREATED="1633880467763" MODIFIED="1633880542862" LINK="https://dev.to/bravemaster619/how-to-use-socket-io-client-correctly-in-react-app-o65" HGAP_QUANTITY="17.75 pt" VSHIFT_QUANTITY="11.25 pt"/>
 </node>
+<<<<<<< HEAD
 <node TEXT="1.) Verwaltung: Context, Ref oder rein state/useEffect&#xa;2.) Allg. erwartete Verhalten: Öffnen der Chat-Seite oder HomeSeite, bei jedem Springen connect/disconnect?" POSITION="left" ID="ID_1558956748" CREATED="1633880253941" MODIFIED="1633881334504" HGAP_QUANTITY="234.49999 pt" VSHIFT_QUANTITY="167.25 pt">
 <edge COLOR="#00007c"/>
 <cloud COLOR="#ffff99" SHAPE="RECT"/>
 <node TEXT="Beispiel mit useRef" ID="ID_1487439133" CREATED="1633881327921" MODIFIED="1633881359283" LINK="https://stackoverflow.com/questions/58432076/websockets-with-functional-components" HGAP_QUANTITY="-465.24999 pt" VSHIFT_QUANTITY="118.5 pt"/>
+=======
+<node TEXT="1.) Verwaltung: Context, Ref, außerhalb App Komponente oder rein state/useEffect&#xa;2.) Allg. erwartete Verhalten: Öffnen der Chat-Seite oder HomeSeite, bei jedem Springen connect/disconnect?" POSITION="left" ID="ID_1558956748" CREATED="1633880253941" MODIFIED="1633882024333" HGAP_QUANTITY="234.49999 pt" VSHIFT_QUANTITY="167.25 pt">
+<edge COLOR="#00007c"/>
+<cloud COLOR="#ffff99" SHAPE="RECT"/>
+<node TEXT="Beispiel mit useRef" ID="ID_1487439133" CREATED="1633881327921" MODIFIED="1633881359283" LINK="https://stackoverflow.com/questions/58432076/websockets-with-functional-components" HGAP_QUANTITY="-465.24999 pt" VSHIFT_QUANTITY="118.5 pt"/>
+<node TEXT="Beispiel außerhalb der App Komponente" ID="ID_1749804914" CREATED="1633882018583" MODIFIED="1633882056349" LINK="https://www.section.io/engineering-education/creating-a-real-time-chat-app-with-react-socket-io-with-e2e-encryption/" HGAP_QUANTITY="-359.49999 pt" VSHIFT_QUANTITY="13.5 pt"/>
+>>>>>>> forwardRefScrolling
 </node>
 </node>
 </map>

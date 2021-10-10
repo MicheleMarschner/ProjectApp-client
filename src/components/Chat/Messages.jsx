@@ -3,16 +3,17 @@ import Message from './Message.jsx';
 
 const loading = false;
 
-function Messages({ messages, setIsScrolling, isScrolling }) {
+function Messages ({messages}) {
 
     const messagesBottom = useRef();
 
     useEffect(() => {
-        if (isScrolling) {
+        messagesBottom.current.scrollTop = messagesBottom.current.scrollHeight;
+        /* if (isScrolling) {
             messagesBottom.current.scrollTop = messagesBottom.current.scrollHeight;
             setIsScrolling(false)
-        }
-	}, [isScrolling])
+        }*/
+    }, [ /*isScrolling*/ messages])
 
 
     const renderMessages = messages => {
@@ -21,10 +22,10 @@ function Messages({ messages, setIsScrolling, isScrolling }) {
     };
 
     return (
-        <div className="chat" ref={messagesBottom}>
+        <div className="chat" ref={messagesBottom} >
             { messages.length>0 && renderMessages(messages) } 
         </div>
     )
 }
 
-export default Messages
+export default Messages;

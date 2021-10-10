@@ -13,7 +13,8 @@ function Chat({user}) {
     const [username, setUsername] = useState("");
     const [socket, setSocket] = useState();
     const [messages, setMessages] = useState([]);
-    const [isScrolling, setIsScrolling] = useState(false);
+    /*const [isScrolling, setIsScrolling] = useState(false);*/
+    
 
     useEffect(() => {
         console.log("socket initialization")
@@ -58,14 +59,14 @@ function Chat({user}) {
     //! nachfragen: warum geht es bei setMessages([...messages, {message: message.text, className}]) schief??
 	const showNewMessage = (message, className) => {
         setMessages((messages) => [...messages, {...message, className}])
-        setIsScrolling(true);
+        /*setIsScrolling(true);*/
     };
 
 
     return (
         <div className="chatContainer">
             <ChatDetails username={username}/>
-            <Messages messages={messages} isScrolling={isScrolling} setIsScrolling={setIsScrolling}/>
+            <Messages messages={messages} /*isScrolling={isScrolling} setIsScrolling={setIsScrolling}*/ />
             <NewMessage 
                 username={username} 
                 socket={socket}

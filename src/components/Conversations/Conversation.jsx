@@ -10,8 +10,8 @@ const formatTimeStamp = time => {
 function Conversation({ conversation }) {
     return (
         <div className="conversation flex_row">
-            <div className="avatar" alt="avatar">
-                <img src={conversation.url}/>
+            <div className="avatar">
+                <img src={conversation.url} alt="avatar"/>
                 <span className="dot"></span>
             </div>
             <div className="conversationBox flex_column">

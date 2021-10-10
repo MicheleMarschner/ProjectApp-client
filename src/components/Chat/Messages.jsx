@@ -3,21 +3,17 @@ import Message from './Message.jsx';
 
 const loading = false;
 
-function Messages({setIsScrolling, isScrolling, messages}) {
+function Messages({ messages, setIsScrolling, isScrolling }) {
 
     const messagesBottom = useRef(null);
 
     useEffect(() => {
         if (isScrolling) {
-            scrollToBottom();
+            messagesBottom.current.scrollTop = messagesBottom.current.scrollHeight;
+            setIsScrolling(false)
         }
 	}, [isScrolling])
 
-
-    const scrollToBottom = () => {
-        messagesBottom.current.scrollTop = messagesBottom.current.scrollHeight;
-        setIsScrolling(false)
-	}; 
 
     const renderMessages = messages => {
         if (loading) return (<h1>loading...</h1>);

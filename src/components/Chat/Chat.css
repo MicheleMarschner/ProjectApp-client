@@ -58,6 +58,7 @@
     flex-direction: column;
     padding: 10px;
     overflow-y: scroll;
+    scroll-behavior: smooth;
     max-height: calc(100% - 150px);
   }
   

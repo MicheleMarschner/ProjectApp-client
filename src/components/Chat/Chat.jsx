@@ -11,6 +11,7 @@ function Chat() {
     const [username, setUsername] = useState("");
     const [socket, setSocket] = useState();
     const [messages, setMessages] = useState([]);
+    const [isScrolling, setIsScrolling] = useState(false);
 
     useEffect(() => {
         const PORT = 3334;
@@ -36,7 +37,6 @@ function Chat() {
             socket.on("message", (data) => {
                 
                 const { type, payload } = data;
-                console.log(payload)
                 const msgObj = payload
                 
                 switch(type) {
@@ -60,13 +60,16 @@ function Chat() {
 	const showMessageReceived = message => showNewMessage(message, 'receiving');
 
     //! nachfragen: warum geht es bei setMessages([...messages, {message: message.text, className}]) schief??
-	const showNewMessage = (message, className) => setMessages((messages) => [...messages, {...message, className}]);
+	const showNewMessage = (message, className) => {
+        setMessages((messages) => [...messages, {...message, className}])
+        setIsScrolling(true);
+    };
 
 
     return (
         <div className="chatContainer">
             <ChatDetails username={username}/>
-            <Messages messages={messages} />
+            <Messages messages={messages} isScrolling={isScrolling} setIsScrolling={setIsScrolling}/>
             <NewMessage 
                 username={username} 
                 socket={socket}

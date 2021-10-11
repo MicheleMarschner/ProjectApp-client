@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect, useRef } from 'react';
 import { io } from 'socket.io-client'; 
 import ChatDetails from './ChatDetails.jsx';
 import Messages from './Messages.jsx';
@@ -11,31 +11,31 @@ import './Chat.css';
 function Chat() {
     console.log("component")
     const [username, setUsername] = useState("");
-    const [socket, setSocket] = useState();
+    //const [socket, setSocket] = useState();
     const [messages, setMessages] = useState([]);
-    
+    const socketRef = useRef();
 
     useEffect(() => {
         console.log("socket initialization")
         const PORT = 3334;
 
 		setUsername(() => /*window.prompt('Please give us your username')*/ 'Michele');
-        const socketInstance = io('ws://localhost:'+PORT)
-		setSocket(socketInstance);
+        socketRef.current = io('ws://localhost:'+PORT)
+		//setSocket(socketInstance);
         return () => {
-            socketInstance.disconnect();
+            socketRef.current.disconnect();
             //setMessages([ 'No connection :(' ]);
         }
 	}, [])
 
     useEffect(() => {
-        if(socket){
-            socket.on("connect", () => {
+        if(socketRef.current){
+            socketRef.current.on("connect", () => {
                 const msgObj = { payload: { username }} 
-                socket.emit("newUser",  msgObj);
+                socketRef.current.emit("newUser",  msgObj);
             });
         
-            socket.on("message", (data) => {
+            socketRef.current.on("message", (data) => {
                 console.log(data.payload)
                 const { event, payload } = data;
                 const msgObj = payload
@@ -48,7 +48,7 @@ function Chat() {
             });
         }
         
-    }, [socket])
+    }, [])
     
 
     const showMessageSent = message => showNewMessage(message, 'sending'); 
@@ -65,7 +65,7 @@ function Chat() {
             <Messages messages={messages} />
             <NewMessage 
                 username={username} 
-                socket={socket}
+                socketRef={socketRef}
                 showMessageSent={showMessageSent}
                 showMessageReceived={showMessageReceived} />
         </div>

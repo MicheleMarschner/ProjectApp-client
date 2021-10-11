@@ -9,6 +9,9 @@ import NavSideBar from './Navigation/NavSideBar.jsx';
 
 import './App.css';
 
+import { initialUser } from '../utils/mockData.js';
+console.log(initialUser)
+
 function App() {
 
   const { isLoggedIn } = useContext(AuthContext);

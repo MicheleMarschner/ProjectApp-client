@@ -30,3 +30,9 @@ export const initialConversations = [
         lastLogin: "09/10/2021, 14:03"
     }
 ]
+
+
+export const initialUser = {
+    _id: "1234",
+    username: "Michèle"
+}

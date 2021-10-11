@@ -24,6 +24,7 @@ function App() {
       <NavSideBar />
       <Switch>
 				<Route exact path="/auth" component={AuthPage} />
+        <Route exact path="/chat:id" component={ChatPage} />
         <Route path="/chat" component={ChatPage} />
         <Route path="/" component={HomePage} />
         <Route component={() => <h1>Not found</h1>} />

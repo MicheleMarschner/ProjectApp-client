@@ -4,6 +4,7 @@ import './Conversations.css';
 
 import {initialConversations} from '../../utils/mockData.js'
 const loading = false;
+/* NEEDS: FriendList, CurrentConversationList */
 
 function ConversationList() {
 

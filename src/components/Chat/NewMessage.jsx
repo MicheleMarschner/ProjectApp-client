@@ -1,6 +1,6 @@
 import React , { useState,useRef } from 'react'
 
-function NewMessage({ socketRef, username, showMessageReceived, showMessageSent }) {
+function NewMessage({ socket, username, showMessageReceived, showMessageSent }) {
 
     const [newMessage, setNewMessage] = useState({});
     const [inputError, setInputError] = useState({ className: '' });
@@ -26,7 +26,7 @@ function NewMessage({ socketRef, username, showMessageReceived, showMessageSent 
     }
 
     const sendMessageToServer = message => {
-		if (!socketRef.current) {
+		if (!socket) {
 		  showMessageReceived('No WebSocket connection :(');
 		  return;
 		}
@@ -34,7 +34,7 @@ function NewMessage({ socketRef, username, showMessageReceived, showMessageSent 
 		const msgObj = {
 		  payload: { text: message.text, username }
 		}
-		socketRef.current.emit("newMessage",  msgObj);
+		socket.emit("newMessage",  msgObj);
 	  }
     
     return (

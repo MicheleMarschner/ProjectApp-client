@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaVideo, FaFolder, FaPhone } from 'react-icons/fa';
 
-function ChatDetails({ username }) {
+function ChatDetails() {
     return (
         <div className="details flex_row">
             <div className="info flex_row">

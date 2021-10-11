@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-import App from './components/App.jsx';
 import AuthProvider from './context/AuthContext.js'
+import App from './components/App.jsx';
 import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <AuthProvider>
-        <App />
+          <App />
       </AuthProvider>
     </Router>
   </React.StrictMode>,

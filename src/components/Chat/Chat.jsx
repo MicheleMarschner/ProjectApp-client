@@ -1,42 +1,25 @@
-import React, { useState,useEffect, useRef } from 'react';
-import { io } from 'socket.io-client'; 
+import React, { useState, useEffect, useContext } from 'react';
+import { ChatContext } from '../../context/ChatContext.js';
 import ChatDetails from './ChatDetails.jsx';
 import Messages from './Messages.jsx';
 import NewMessage from './NewMessage.jsx';
 import './Chat.css'; 
 
-//const URL = 'https://git.heroku.com/tranquil-fortress-48513.git';
-
+import { initialUser } from '../../utils/mockData.js';
 
 function Chat() {
-    console.log("component")
-    const [username, setUsername] = useState("");
-    //const [socket, setSocket] = useState();
+    const { socket } = useContext(ChatContext);
+    const [user, setUser] = useState(initialUser);
     const [messages, setMessages] = useState([]);
-    const socketRef = useRef();
 
     useEffect(() => {
-        console.log("socket initialization")
-        const PORT = 3334;
-
-		setUsername(() => /*window.prompt('Please give us your username')*/ 'Michele');
-        socketRef.current = io('ws://localhost:'+PORT)
-		//setSocket(socketInstance);
-        return () => {
-            socketRef.current.disconnect();
-            //setMessages([ 'No connection :(' ]);
-        }
-	}, [])
-
-    useEffect(() => {
-        if(socketRef.current){
-            socketRef.current.on("connect", () => {
-                const msgObj = { payload: { username }} 
-                socketRef.current.emit("newUser",  msgObj);
+        if(socket){
+            socket.on("connect", () => {
+                const msgObj = { payload: { username: user.username }} 
+                socket.emit("newUser",  msgObj);
             });
         
-            socketRef.current.on("message", (data) => {
-                console.log(data.payload)
+            socket.on("message", (data) => {
                 const { event, payload } = data;
                 const msgObj = payload
                 
@@ -47,8 +30,8 @@ function Chat() {
                 showMessageInfo(msgObj)
             });
         }
-        
-    }, [])
+        //else initSocket()?  
+    }, [socket])
     
 
     const showMessageSent = message => showNewMessage(message, 'sending'); 
@@ -61,11 +44,11 @@ function Chat() {
 
     return (
         <div className="chatContainer">
-            <ChatDetails username={username}/>
+            <ChatDetails />
             <Messages messages={messages} />
             <NewMessage 
-                username={username} 
-                socketRef={socketRef}
+                username={user.username} 
+                socket={socket}
                 showMessageSent={showMessageSent}
                 showMessageReceived={showMessageReceived} />
         </div>

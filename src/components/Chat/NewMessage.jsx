@@ -6,23 +6,24 @@ function NewMessage({ sendMessageToServer, showMessageSent, sendIsTypingToServer
     const [isTyping, setIsTyping] = useState(false);
     const [inputError, setInputError] = useState({ className: '' });
     const chatInputForm = useRef();
+    let timeout = useRef();
 
     const onChange = e => {
 		  setNewMessage({ [e.target.name]: e.target.value });
     };
 
     const onKeyUp = () => {
-      let timeout = undefined;
-      const throttleTime = 3000;
+      
+      const throttleTime = 1000;
 
       if (isTyping === false) {
         setIsTyping(true);
         sendIsTypingToServer(true);
       }
       else {
-        clearTimeout(timeout);
+        clearTimeout(timeout.current);
       }
-      timeout = setTimeout(timeoutFunction, throttleTime);
+      timeout.current = setTimeout(timeoutFunction, throttleTime);
     }
 
     const timeoutFunction = () => {

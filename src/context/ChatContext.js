@@ -60,7 +60,7 @@ const ChatProvider = ({ children }) => {
     const showMessageSent = message => showNewMessage(message, 'sending');
 	const showMessageReceived = message => showNewMessage(message, 'receiving');
     const showMessageInfo = message => showNewMessage(message, 'generalInfo');
-    const showIsTyping = message => setIsTyping(message.text);  // möglich: nur setzen wenn: if (isTyping !== message.text) setIsTyping(message.text)
+    const showIsTyping = message => setIsTyping(message.text);
 
     //! nachfragen: warum geht es bei setMessages([...messages, {message: message.text, className}]) schief??
 	const showNewMessage = (message, className) => setMessages((messages) => [...messages, {...message, className}]);

@@ -3,7 +3,7 @@ import Message from './Message.jsx';
 
 const loading = false;
 
-function Messages ({messages}) {
+function Messages ({messages, isTyping}) {
 
     const messagesBottom = useRef();
 
@@ -17,8 +17,15 @@ function Messages ({messages}) {
     };
 
     return (
-        <div className="chat" ref={messagesBottom} >
+        <div className="chat" ref={messagesBottom}>
             { messages.length>0 && renderMessages(messages) } 
+            
+            <div className={`messages receiving ${isTyping? "isTyping" : "isTyping none"}`}>
+                <div className={`${isTyping? "avatar hidden" : "avatar"}`}><img src="http://res.cloudinary.com/michele-marschner/image/upload/v1633408359/avatar/ftgkqp804cmycgqn7ecp.jpg" alt="avatar"/></div>
+               <div className="messageBox">
+                    <div className="message">...</div>
+                </div>
+            </div>
         </div>
     )
 }

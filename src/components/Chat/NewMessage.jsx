@@ -1,41 +1,44 @@
 import React , { useState,useRef } from 'react'
 
-function NewMessage({ socket, username, showMessageReceived, showMessageSent }) {
+function NewMessage({ sendMessageToServer, showMessageSent, sendIsTypingToServer }) {
 
     const [newMessage, setNewMessage] = useState({});
+    const [isTyping, setIsTyping] = useState(false);
     const [inputError, setInputError] = useState({ className: '' });
     const chatInputForm = useRef();
 
     const onChange = e => {
-		setNewMessage({ [e.target.name]: e.target.value });
-	};
+		  setNewMessage({ [e.target.name]: e.target.value });
+    };
 
-	const onSubmit = e => {
-		e.preventDefault();
-		if (!newMessage.text) {
-            setInputError({ className: 'errorInput' });
-            return;
-          } else {
-            setInputError({ className: '' });
-          }
-        const time = new Date();
-		showMessageSent({...newMessage, time});
-		sendMessageToServer({...newMessage, time});
-		setNewMessage({});
-		chatInputForm.current.reset();
+    const onKeyUp = () => {
+      let timeout = undefined;
+      const throttleTime = 3000;
+
+      if (isTyping === false) {
+        setIsTyping(true);
+        sendIsTypingToServer(true);
+      }
+      else {
+        clearTimeout(timeout);
+      }
+      timeout = setTimeout(timeoutFunction, throttleTime);
     }
 
-    const sendMessageToServer = message => {
-		if (!socket) {
-		  showMessageReceived('No WebSocket connection :(');
-		  return;
-		}
-		
-		const msgObj = {
-		  payload: { text: message.text, username }
-		}
-		socket.emit("newMessage",  msgObj);
-	  }
+    const timeoutFunction = () => {
+      setIsTyping(false);
+      sendIsTypingToServer(false);
+    }
+
+    const onSubmit = e => {
+      e.preventDefault();
+      !newMessage.text ? setInputError({ className: 'errorInput' }) : setInputError({ className: '' });
+      const time = new Date();
+      showMessageSent({...newMessage, time});
+      sendMessageToServer({...newMessage, time});
+      setNewMessage({});
+      chatInputForm.current.reset();
+    }
     
     return (
         <form 
@@ -54,7 +57,8 @@ function NewMessage({ socket, username, showMessageReceived, showMessageSent }) 
                 name="text"
                 value={newMessage.text || ''}
                 placeholder="Type your message here"
-                onChange={onChange} />
+                onChange={onChange}
+                onKeyUp={onKeyUp} />
             <button 
                 id="send" 
                 title="Send"

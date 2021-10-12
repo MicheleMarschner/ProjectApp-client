@@ -116,6 +116,19 @@
     margin-left: 0.5rem;
   }
 
+  .hidden {
+    visibility: hidden;
+  }
+
+  .none {
+    display: none;
+  }
+
+  .isTyping {
+    font-size: 2rem;
+    font-weight: bolder;
+  }
+
   .receiving .messageBox {
     align-items: flex-start;
   }
